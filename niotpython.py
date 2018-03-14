@@ -53,6 +53,9 @@ def register():
 @login_required
 def guanli():
 	return render('guanli.html')
+@app.route('/base')
+def base():
+	return render('base.html')
 
 if __name__ == '__main__':
 	app.run()
