@@ -1,12 +1,12 @@
 from flask import Flask,request,render_template as render,url_for,redirect,session
 import config
 from exts import db
-import os
+
 from models import user
 from functools import wraps
 app = Flask(__name__)
 app.config.from_object(config)
-app.config['SECRET_KEY']=os.urandom(24)
+
 db.init_app(app)
 ##
 ##判断登录状态的装饰器
