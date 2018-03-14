@@ -1,0 +1,3 @@
+SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://root:123456@localhost/niot'
+DEBUG=True
+SQLALCHEMY_TRACK_MODIFICATIONS=True
