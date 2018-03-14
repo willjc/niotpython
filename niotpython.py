@@ -18,13 +18,17 @@ def index():
 	return render('index.html')
 @app.route('/login/',methods=['GET','POST'])
 def login():
-	if request.method=="GET":
-		return render('login.html')
-	elif request.method=="post":
-		username=request.form.get('username')
-		return "post"
+	if request.method=='POST':
+		lusername=request.form.get('username')
+		lpassword=request.form.get('password')
+		#userdata=user.query.filter(user.username=lusername,user.password=lpassword).first()
+		#user.query.filter(user.username=lusername).first()
+		userdata=user.query.filter(user.username==lusername,user.password==lpassword).first()#这里面要用双等号ls#
+
+		if userdata:
+			return '登录成功，'+userdata.username
 	else:
-		return "weizhileixing"
+		return render('login.html')
 	#return username
 @app.route('/register/',methods=['GET','POST'])
 def register():
