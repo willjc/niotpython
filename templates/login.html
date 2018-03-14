@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="cn">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -7,7 +7,9 @@
 <body>
 <form action="{{ url_for('login') }}" method="post">
 
-    <input type="text">
+    <input type="text" name="username" placeholder="请输入账号"><br>
+    <input type="password" name="password" placeholder="请输入密码"><br>
+    <input type="submit" name="submit" value="提交">
 
 
 

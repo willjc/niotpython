@@ -1,32 +1,32 @@
-from flask import Flask,request,render_template as render,url_for,redirect
+from flask import Flask,request,render_template as render,url_for,redirect,session
 import config
 from exts import db
+import os
 from models import user
+from functools import wraps
 app = Flask(__name__)
 app.config.from_object(config)
-
+app.config['SECRET_KEY']=os.urandom(24)
 db.init_app(app)
+##
+##判断登录状态的装饰器
+##
+from zhuangshiqi import login_required
 
 @app.route('/')
 def index():
-	'''
-	newuser=user(username="wangwen",password="111111")
-	db.session.add(newuser)
-	db.session.commit()
-
-	'''
 	return render('index.html')
 @app.route('/login/',methods=['GET','POST'])
 def login():
 	if request.method=='POST':
 		lusername=request.form.get('username')
 		lpassword=request.form.get('password')
-		#userdata=user.query.filter(user.username=lusername,user.password=lpassword).first()
-		#user.query.filter(user.username=lusername).first()
-		userdata=user.query.filter(user.username==lusername,user.password==lpassword).first()#这里面要用双等号ls#
+		#print(lpassword)
 
+		userdata=user.query.filter(user.username==lusername,user.password==lpassword).first()#这里面要用双等号ls#
 		if userdata:
-			return '登录成功，'+userdata.username
+			session['userid']=userdata.id
+			return redirect(url_for('guanli'))
 	else:
 		return render('login.html')
 	#return username
@@ -49,7 +49,10 @@ def register():
 
 		else:
 			return '信息不能为空'
-
+@app.route('/guanli/')
+@login_required
+def guanli():
+	return render('guanli.html')
 
 if __name__ == '__main__':
 	app.run()
