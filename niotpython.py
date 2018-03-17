@@ -7,6 +7,9 @@ from functools import wraps
 app = Flask(__name__)
 app.config.from_object(config)
 
+app.jinja_env.variable_start_string = '<{'
+app.jinja_env.variable_end_string = '}>'
+
 db.init_app(app)
 ##
 ##判断登录状态的装饰器
